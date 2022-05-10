@@ -1,7 +1,12 @@
 @import './views/app';
+@import './components/Header';
 @import './components/Home';
 @import './components/LandingsCard';
 @import './components/Nav';
 @import './components/LandingsList';
+@import './components/NeasCard';
+@import './components/NeasList';
 
+@import './elements/button';
 
+@import './views/main';

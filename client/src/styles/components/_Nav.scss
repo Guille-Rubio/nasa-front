@@ -1,11 +1,16 @@
 .navbar{
     display:flex;
-    justify-content: space-around;
+    justify-content:space-evenly;
     align-items: center;
     align-content: center;
+    gap:25px;
 
 }
 
 a{
     text-decoration: none;
+}
+
+.burger{
+    width:35px;
 }

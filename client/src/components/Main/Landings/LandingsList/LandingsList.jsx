@@ -67,28 +67,17 @@ function LandingsList(props) {
         event.preventDefault();
         console.log(from.current.value)
         setFilter(`?from=${from.current.value}&to=${to.current.value}`)
-
     }
-    const handleFilter = (event) => {
-        event.preventDefault()
-        console.log(event.target.value)
 
-
-    }
 
     return (<div>
         <section>
             <form>
-                <select onChange={handleFilter} value="searchClass">
-                    <option value="searchMass">Search by mass</option>
-                    <option value="searchClass">Search by class</option>
-                    <option value="searchDate">Search between dates</option>
-                </select>
                 <input type="text" name="class" placeholder="class" onChange={handleClass} />
                 <input type="text" name="mass" placeholder="mass" onChange={handleMass} />
                 <input type="text" name="from" placeholder="date from" ref={from} />
                 <input type="text" name="to" placeholder="date to" ref={to} />
-                <button onClick={handleDate}>Search by date</button>
+                <button className="button1" onClick={handleDate}>Search by date</button>
             </form>
             <section>
                 <h1>Map</h1>
