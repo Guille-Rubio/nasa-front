@@ -5,9 +5,9 @@ const LandingsCard = (props) => {
 
 
   return <article className="landing-card">
-    {id?<h3>landing id#{id}</h3>:""}
-    <p>name: {name}</p>
-    <p>geolocation: lat{geolocation?geolocation.latitude:"Not available"}, lon:{geolocation?geolocation.longitude:"Not available"} </p>
+    <h3>name: {name}</h3>
+    {id?<p>landing id#{id}</p>:""}
+    {geolocation?<p>geolocation: lat:{geolocation.latitude} lon: {geolocation.longitude} </p>:""}
     {year?<p>date: {year}</p>:""}
     {date?<p>date: {date}</p>:""}
     {mass?<p>mass: {mass}</p>:""}

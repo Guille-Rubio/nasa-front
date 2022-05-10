@@ -1,16 +1,18 @@
 import React from "react";
 import { useState, useEffect, useRef } from 'react';
 import axios from "axios";
-import LandingsCard from "./LandingsCard/LandingsCard";
 import { v4 as uuidV4 } from 'uuid';
+import { MapContainer, TileLayer, Marker } from 'react-leaflet';
 
 function LandingsList(props) {
 
-    const [landings, setLandings] = useState();
-    const [filter, setFilter] = useState({});
+    const [landings, setLandings] = useState([]);
+    const [filter, setFilter] = useState("");
 
     const from = useRef()
     const to = useRef()
+
+    const position = [40.4168, -3.7038];
 
     useEffect(() => {
 
@@ -19,7 +21,14 @@ function LandingsList(props) {
                 const request = await axios.get(`http://localhost:5000/api/astronomy/landings/${filter}`);
                 const response = await request.data;
                 console.log(request);
-                setLandings(response)
+                //filtro
+                const locatedLandings = response.filter(landing => landing.geolocation !== "")
+                console.log(locatedLandings)
+                const landingsCoordinates = locatedLandings.map(landing => landing.geolocation ? [landing.geolocation.latitude, landing.geolocation.longitude] : [0, 0])
+                /* landing.geolocation.latitude = parseFloat(landing.geolocation.latitude); */
+                /* landing.geolocation.longitude = parseFloat(landing.geolocation.longitude); */
+
+                setLandings(landingsCoordinates)
             } catch (error) {
                 console.log(error);
 
@@ -60,10 +69,21 @@ function LandingsList(props) {
         setFilter(`?from=${from.current.value}&to=${to.current.value}`)
 
     }
+    const handleFilter = (event) => {
+        event.preventDefault()
+        console.log(event.target.value)
+
+
+    }
 
     return (<div>
         <section>
             <form>
+                <select onChange={handleFilter} value="searchClass">
+                    <option value="searchMass">Search by mass</option>
+                    <option value="searchClass">Search by class</option>
+                    <option value="searchDate">Search between dates</option>
+                </select>
                 <input type="text" name="class" placeholder="class" onChange={handleClass} />
                 <input type="text" name="mass" placeholder="mass" onChange={handleMass} />
                 <input type="text" name="from" placeholder="date from" ref={from} />
@@ -72,15 +92,23 @@ function LandingsList(props) {
             </form>
             <section>
                 <h1>Map</h1>
+                <div className="map" id="map">
 
+                    <MapContainer
+                        center={position} zoom={2} scrollWheelZoom={true} >
+                        <TileLayer
+                            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                        />
 
+                        {landings ? landings.map(landing => <Marker position={landing} key={uuidV4()}></Marker>) : ""}
+
+                    </MapContainer>
+                </div>
             </section>
 
-            <section className="landings-list__card-container">
-                {landings ? landings.map(landing => <LandingsCard data={landing} key={uuidV4()} />) : ""}
-            </section>
         </section>
-    </div>)
+    </div >)
 }
 
 export default LandingsList;
