@@ -13,7 +13,6 @@ function Home(props) {
         const request = await axios.get(`https://api.nasa.gov/planetary/apod?api_key=${process.env.REACT_APP_NASA_API_KEY}`);
         const picture = await request.data.hdurl;
         setApod(picture)
-        console.log(picture)
       } catch (err) {
         console.log(err)
       }
@@ -24,11 +23,16 @@ function Home(props) {
 
 
   return <div className='home'>
-    <h1>Home  </h1>
-    <Link to="/landings"><button>Asteroids</button></Link>
-    <Link to="/neas"><button>Neas</button></Link>
-    <img src={apod} alt="Nasa daily" className="home__nasa-image"></img>
-  </div>;
+    <div  className="home__nasa-image" style={{ 
+      backgroundImage: `url(${apod})`,  backgroundImageRepeat:"no-repeat",
+      backgroundSize:"cover"
+    }}>
+      <h1>Home  </h1>
+      <Link to="/landings"><button className="button1">Asteroids</button></Link>
+      <Link to="/neas"><button className="button1">Neas</button></Link>
+    </div>
+  </div>
+;
 }
 
 export default Home;

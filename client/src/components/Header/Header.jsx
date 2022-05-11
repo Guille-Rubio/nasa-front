@@ -5,11 +5,11 @@ import nasa from '../../assets/img/nasa.png';
 
 function Header(props) {
 
-  return <div className="header">
+  return <header className="header">
      <Nav />
     <img className="nasa-logo" src={nasa} alt="nasa logo"></img>
    
-  </div>;
+  </header>;
 
 }
 

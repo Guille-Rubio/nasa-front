@@ -27,7 +27,7 @@ function NeasList(props) {
   },[])
 
 
-  return <div>NeasList
+  return <section className="neas-list">NeasList
     <h1>NeasList</h1>
     <div>Map</div>
     <section className="neas-list__card-container">
@@ -35,8 +35,8 @@ function NeasList(props) {
       {neas.map(nea => <NeasCard data={nea} />)}
     </section>
     <div>Filters</div>
-    <Link to="/createneas"><button>Add new neas</button></Link>
-  </div>;
+    <Link to="/createneas"><button className="button1">Add new neas</button></Link>
+  </section>;
 }
 
 export default NeasList;

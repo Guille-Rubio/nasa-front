@@ -1,0 +1,20 @@
+.neas-form{
+    height:80vh;
+    display:flex;
+    justify-content: left;
+    flex-direction: column;
+}
+
+
+.neas-form__h1{
+    color:white;
+}
+
+.neas-form__form{
+    padding:15px;
+    display:flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap:15px;
+    max-width: 600px;
+}

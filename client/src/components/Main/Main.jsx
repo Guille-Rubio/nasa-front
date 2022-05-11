@@ -13,7 +13,10 @@ import NeasList from './NeasList/NeasList';
 
 function Main(props) {
 
-  return <div className="main">
+
+
+
+  return <main className="main">
     <Routes>
       <Route element={<Home />} path="/"></Route>
       <Route element={<LandingsForm />} path="/createlanding"></Route>
@@ -21,7 +24,7 @@ function Main(props) {
       <Route element={<NeasForm />} path="/createneas"></Route>
       <Route element={<NeasList />} path="/neas"></Route>
     </Routes>
-  </div>;
+  </main>;
 }
 
 

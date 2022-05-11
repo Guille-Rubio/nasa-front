@@ -1,9 +1,12 @@
 @import '../utils/variables.scss';
 
 .home{
-    min-height:200px;
+    min-height:80vh;
+    
 }
 
 .home__nasa-image{
-    width:100vw;
+    width:100%;
+    min-height: 70vh;
+    
 }
