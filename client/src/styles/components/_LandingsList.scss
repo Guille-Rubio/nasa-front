@@ -1,4 +1,18 @@
 
+.landing-list__form-container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.landings-list__search-button{
+    margin:15px;
+
+}
+
+
 
 .landings-list__card-container{
     display:flex;

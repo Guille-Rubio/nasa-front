@@ -36,9 +36,6 @@ function NeasForm(props) {
 
   }
 
-
-
-
   return <section className="neas-form">
     <h1 className="neas-form__h1">NeasForm</h1>
     <form className="neas-form__form" onSubmit={handleSubmit}>

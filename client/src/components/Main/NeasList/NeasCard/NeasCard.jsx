@@ -1,5 +1,10 @@
 import React from "react";
 
+const removeNea = () => {
+  console.log("should remove nea")
+
+}
+
 const NeasCard = (props) => {
 const {designation, discovery_date,h_mag, i_deg, moid_au, orbit_class, period_yr, pha, q_au_1, q_au_2 }= props.data
 
@@ -14,7 +19,9 @@ const {designation, discovery_date,h_mag, i_deg, moid_au, orbit_class, period_yr
     <p>{pha}</p>
     <p>{q_au_1}</p>
     <p>{q_au_2}</p>
+    <button className="button1" onClick={removeNea}>Borrar</button>
   </div>;
+  
 };
 
 export default NeasCard;

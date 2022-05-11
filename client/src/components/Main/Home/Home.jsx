@@ -22,16 +22,18 @@ function Home(props) {
   }, [])
 
 
-  return <div className='home'>
+  return <section className='home'>
     <div  className="home__nasa-image" style={{ 
-      backgroundImage: `url(${apod})`,  backgroundImageRepeat:"no-repeat",
+      backgroundImage: `url(${apod})`,  backgroundImageRepeat:"center",
       backgroundSize:"cover"
     }}>
-      <h1>Home  </h1>
+      <h1>Home</h1>
+      <div className="home__button-container">
       <Link to="/landings"><button className="button1">Asteroids</button></Link>
       <Link to="/neas"><button className="button1">Neas</button></Link>
+      </div>
     </div>
-  </div>
+  </section>
 ;
 }
 

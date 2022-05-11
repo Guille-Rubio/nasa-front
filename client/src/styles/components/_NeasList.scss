@@ -1,6 +1,4 @@
-
 .neas-list{
-
     height:80vh;
 }
 
@@ -8,4 +6,8 @@
     display:flex;
     gap:15px;
     flex-wrap: wrap;
+}
+
+.neas-list__h1{
+    color:white
 }

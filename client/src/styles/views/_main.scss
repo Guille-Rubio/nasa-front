@@ -1,5 +1,7 @@
 .main {
-    padding: 10vh, 10vw;
     background-image: url("../../assets/img/fondo.gif");
     border:2px solid black;
+    background-repeat: repeat;
+    overflow: hidden;
+    min-height:70vh;
 }

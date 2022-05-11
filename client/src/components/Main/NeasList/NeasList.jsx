@@ -2,11 +2,16 @@ import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
 import axios from "axios";
 import NeasCard from "./NeasCard/NeasCard";
+import { Scroll } from 'react-scroll-component';
 
 function NeasList(props) {
 
   const [neas, setNeas] = useState([]);
- 
+  
+  const scrollConfig = {
+    direction:"vertical",
+    height:"80vh",
+  }
 
   useEffect(() => {
 
@@ -24,18 +29,21 @@ function NeasList(props) {
     fetchNeas()
 
 
-  },[])
+  }, [])
+
+ 
+
 
 
   return <section className="neas-list">NeasList
-    <h1>NeasList</h1>
-    <div>Map</div>
+    <h1 className="neas-list__h1">NeasList</h1>
+    <Link to="/createneas"><button className="button1">Add new neas</button></Link>
+    <Scroll {...scrollConfig}>
     <section className="neas-list__card-container">
-
       {neas.map(nea => <NeasCard data={nea} />)}
     </section>
-    <div>Filters</div>
-    <Link to="/createneas"><button className="button1">Add new neas</button></Link>
+    </Scroll>
+    
   </section>;
 }
 

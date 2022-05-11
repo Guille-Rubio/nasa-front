@@ -1,6 +1,7 @@
 import React from "react";
 import { useState, useEffect, useRef } from 'react';
 import axios from "axios";
+import { Link } from 'react-router-dom';
 import { v4 as uuidV4 } from 'uuid';
 import { MapContainer, TileLayer, Marker } from 'react-leaflet';
 
@@ -14,6 +15,16 @@ function LandingsList(props) {
 
     const position = [40.4168, -3.7038];
 
+    const rockIcon = {
+        iconUrl: 'leaf-green.png',
+        shadowUrl: 'leaf-shadow.png',
+        iconSize: [38, 95], 
+        iconAnchor: [22, 94], // point of the icon which will correspond to marker's location
+        shadowAnchor: [4, 62],  // the same for the shadow
+        popupAnchor: [-3, -76]
+
+    }
+
     useEffect(() => {
 
         const fetchLandings = async () => {
@@ -21,13 +32,9 @@ function LandingsList(props) {
                 const request = await axios.get(`http://localhost:5000/api/astronomy/landings/${filter}`);
                 const response = await request.data;
                 console.log(request);
-                //filtro
                 const locatedLandings = response.filter(landing => landing.geolocation !== "")
                 console.log(locatedLandings)
                 const landingsCoordinates = locatedLandings.map(landing => landing.geolocation ? [landing.geolocation.latitude, landing.geolocation.longitude] : [0, 0])
-                /* landing.geolocation.latitude = parseFloat(landing.geolocation.latitude); */
-                /* landing.geolocation.longitude = parseFloat(landing.geolocation.longitude); */
-
                 setLandings(landingsCoordinates)
             } catch (error) {
                 console.log(error);
@@ -71,14 +78,30 @@ function LandingsList(props) {
 
 
     return (<div>
-        <section>
+        <section className="landing-list__form-container">
             <form>
-                <input type="text" name="class" placeholder="class" onChange={handleClass} />
-                <input type="text" name="mass" placeholder="mass" onChange={handleMass} />
-                <input type="text" name="from" placeholder="date from" ref={from} />
-                <input type="text" name="to" placeholder="date to" ref={to} />
-                <button className="button1" onClick={handleDate}>Search by date</button>
+                <div className="input__group">
+                    <label className="input__label" htmlFor="class">class</label>
+                    <input className="input__field" type="text" name="class" placeholder="class" id="class" onChange={handleClass} />
+                </div>
+                <div className="input__group">
+                    <label className="input__label" htmlFor="class">mass</label>
+                    <input className="input__field" type="text" name="mass" placeholder="mass" onChange={handleMass} />
+                </div>
+                <div className="input__group">
+                    <label className="input__label" htmlFor="class">date from</label>
+                    <input className="input__field" type="text" name="from" placeholder="date from" ref={from} />
+                </div>
+                <div className="input__group">
+                    <label className="input__label" htmlFor="class">date to</label>
+                    <input className="input__field" type="text" name="to" placeholder="date to" ref={to} />
+
+                </div>
             </form>
+            <div>
+                <button className="button1" onClick={handleDate}>Search by date</button>
+                <Link to="/createlanding"><button className="button1">Add new landing</button></Link>
+            </div>
             <section>
                 <h1>Map</h1>
                 <div className="map" id="map">

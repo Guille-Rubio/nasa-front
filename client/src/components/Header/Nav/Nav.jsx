@@ -1,4 +1,4 @@
-import React , {useState} from "react";
+import React, { useState } from "react";
 import { Link } from 'react-router-dom'
 import burger from '../../../assets/img/burger.png';
 
@@ -7,15 +7,16 @@ function Nav(props) {
 
   const open = () => {
     visible === "visible" ? setVisible("hidden") : setVisible("visible")
-    
   }
-  
+
 
   return <nav className="navbar">
     <img src={burger} className="burger" onClick={open} alt="burger icon"></img>
-    <Link className={`${visible}`} to="/landings">Asteroids</Link>
-    <Link className={`${visible}`} to="/neas">Neas</Link>
-    <Link className={`${visible}`} to="/">Home</Link>
+    <ul className="navbar__list">
+      <li><Link className={`${visible} button1`} to="/">Home</Link></li>
+      <li><Link className={`${visible} button1`} to="/landings">Asteroids</Link></li>
+      <li><Link className={`${visible} button1`} to="/neas">Neas</Link></li>
+    </ul>
   </nav>;
 }
 

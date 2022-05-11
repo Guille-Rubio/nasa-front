@@ -1,12 +1,22 @@
 @import '../utils/variables.scss';
 
 .home{
-    min-height:80vh;
+    padding:15px;
+
     
 }
 
 .home__nasa-image{
-    width:100%;
-    min-height: 70vh;
-    
+    margin:auto;
+    height:450px;
+    border: 1px dotted white;
+    border-radius: 15px;
+     
+}
+
+.home__button-container{
+    display: flex;
+    justify-content: space-around;
+
+
 }
