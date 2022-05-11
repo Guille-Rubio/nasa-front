@@ -1,19 +1,25 @@
 .neas-form{
-    height:80vh;
+    min-height:80vh;
     display:flex;
-    justify-content: left;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: stretch;
     flex-direction: column;
 }
 
 .neas-form__h1{
     color:white;
+    text-align: center;
 }
 
 .neas-form__form{
     padding:15px;
     display:flex;
     justify-content: center;
+    flex-direction: column;
+    align-content: center;
     flex-wrap: wrap;
     gap:15px;
     max-width: 600px;
+    margin:auto;
 }

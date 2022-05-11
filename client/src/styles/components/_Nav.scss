@@ -1,15 +1,14 @@
 .navbar{
     display:flex;
-    flex-wrap: wrap;
-    justify-content:space-between;
+    justify-content:center;
     align-items: center;
-    align-content: center;
-    flex-shrink: 2;
+    align-content: left;
+
 }
 
 .navbar__list{
     list-style: none;
-    overflow-y: visible;
+
 }
 
 a{
@@ -18,4 +17,5 @@ a{
 
 .burger{
     width:35px;
+
 }

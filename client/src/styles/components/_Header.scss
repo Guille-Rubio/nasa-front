@@ -1,10 +1,18 @@
 .header {
+    
     display: flex;
+    align-items: center;
     justify-content: space-between;
-    align-content: center;
-    flex-wrap: nowrap;
     margin-left: 30px;
     margin-right: 30px;
+
+}
+
+.header__button-container{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+
 }
 
 .nasa-logo {

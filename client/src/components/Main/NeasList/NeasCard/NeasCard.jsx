@@ -20,6 +20,7 @@ const {designation, discovery_date,h_mag, i_deg, moid_au, orbit_class, period_yr
     <p>{q_au_1}</p>
     <p>{q_au_2}</p>
     <button className="button1" onClick={removeNea}>Borrar</button>
+    <button className="button1">Añadir a carrito</button>
   </div>;
   
 };

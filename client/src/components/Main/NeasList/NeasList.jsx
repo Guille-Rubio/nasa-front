@@ -3,15 +3,13 @@ import { Link } from 'react-router-dom';
 import axios from "axios";
 import NeasCard from "./NeasCard/NeasCard";
 import { Scroll } from 'react-scroll-component';
+import {scrollConfig} from '../../../utils/scroll_config';
 
 function NeasList(props) {
 
   const [neas, setNeas] = useState([]);
   
-  const scrollConfig = {
-    direction:"vertical",
-    height:"80vh",
-  }
+
 
   useEffect(() => {
 

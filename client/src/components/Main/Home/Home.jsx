@@ -27,7 +27,7 @@ function Home(props) {
       backgroundImage: `url(${apod})`,  backgroundImageRepeat:"center",
       backgroundSize:"cover"
     }}>
-      <h1>Home</h1>
+      <h1>Welcome to the NASA app</h1>
       <div className="home__button-container">
       <Link to="/landings"><button className="button1">Asteroids</button></Link>
       <Link to="/neas"><button className="button1">Neas</button></Link>
