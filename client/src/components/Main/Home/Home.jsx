@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+//import halcon from '../../../assets/img/halcon.png';
 
 
 function Home(props) {
@@ -25,9 +26,10 @@ function Home(props) {
   return <section className='home'>
     <div  className="home__nasa-image" style={{ 
       backgroundImage: `url(${apod})`,  backgroundImageRepeat:"center",
-      backgroundSize:"cover"
+      backgroundSize:"contain"
     }}>
       <h1>Welcome to the NASA app</h1>
+  
       <div className="home__button-container">
       <Link to="/landings"><button className="button1">Asteroids</button></Link>
       <Link to="/neas"><button className="button1">Neas</button></Link>

@@ -4,10 +4,16 @@ import axios from "axios";
 import { Link } from 'react-router-dom';
 import { v4 as uuidV4 } from 'uuid';
 import { MapContainer, TileLayer, Marker } from 'react-leaflet';
+import { Scroll } from 'react-scroll-component';
+import { scrollConfig } from '../../../../utils/scroll_config';
+import Pages from '../LandingsList/Pages';
+import LandingsCard from "./LandingsCard/LandingsCard";
+
 
 function LandingsList(props) {
 
     const [landings, setLandings] = useState([]);
+    const [coordinates, setCoordinates ] = useState([])
     const [filter, setFilter] = useState("");
 
     const from = useRef()
@@ -15,15 +21,14 @@ function LandingsList(props) {
 
     const position = [40.4168, -3.7038];
 
-    const rockIcon = {
-        iconUrl: 'leaf-green.png',
-        shadowUrl: 'leaf-shadow.png',
-        iconSize: [38, 95], 
-        iconAnchor: [22, 94], // point of the icon which will correspond to marker's location
-        shadowAnchor: [4, 62],  // the same for the shadow
-        popupAnchor: [-3, -76]
-
-    }
+    /*    const rockIcon = {
+           iconUrl: 'leaf-green.png',
+           shadowUrl: 'leaf-shadow.png',
+           iconSize: [38, 95], 
+           iconAnchor: [22, 94], // point of the icon which will correspond to marker's location
+           shadowAnchor: [4, 62],  // the same for the shadow
+           popupAnchor: [-3, -76]
+       } */
 
     useEffect(() => {
 
@@ -35,7 +40,8 @@ function LandingsList(props) {
                 const locatedLandings = response.filter(landing => landing.geolocation !== "")
                 console.log(locatedLandings)
                 const landingsCoordinates = locatedLandings.map(landing => landing.geolocation ? [landing.geolocation.latitude, landing.geolocation.longitude] : [0, 0])
-                setLandings(landingsCoordinates)
+                setCoordinates(landingsCoordinates)
+                setLandings(response)
             } catch (error) {
                 console.log(error);
 
@@ -43,13 +49,7 @@ function LandingsList(props) {
         }
         fetchLandings()
 
-
     }, [filter])
-
-
-
-
-
 
     const handleClass = (event) => {
         event.preventDefault();
@@ -77,7 +77,8 @@ function LandingsList(props) {
     }
 
 
-    return (<div>
+    return (<div className="landing-list">
+        {/*  <Scroll {...scrollConfig}> */}
         <section className="landing-list__form-container">
             <form>
                 <div className="input__group">
@@ -102,24 +103,31 @@ function LandingsList(props) {
                 <button className="button1" onClick={handleDate}>Search by date</button>
                 <Link to="/createlanding"><button className="button1">Add new landing</button></Link>
             </div>
-            <section>
-                <h1>Map</h1>
-                <div className="map" id="map">
+            {landings ? <p>{landings.length} landings </p> : ""}
+        </section>
+        <section>
+            <h1>Map</h1>
+            <div className="map" id="map">
 
-                    <MapContainer
-                        center={position} zoom={2} scrollWheelZoom={true} >
-                        <TileLayer
-                            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                        />
+                <MapContainer
+                    center={position} zoom={2} scrollWheelZoom={true} >
+                    <TileLayer
+                        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                    />
 
-                        {landings ? landings.map(landing => <Marker position={landing} key={uuidV4()}></Marker>) : ""}
+                    {coordinates ? coordinates.map(landing => <Marker position={landing} key={uuidV4()}></Marker>) : ""}
 
-                    </MapContainer>
-                </div>
-            </section>
+                </MapContainer>
+            </div>
+        </section>
+        <section>
+
+            {landings.map((landing, i) => <LandingsCard className="landings-card" data={landing} key={uuidV4()} index={i} />)}
 
         </section>
+
+        {/*  </Scroll> */}
     </div >)
 }
 

@@ -1,23 +1,46 @@
 import React, { useState } from "react";
 import cart from '../../../assets/img/cart.jpg';
-
-
+import axios from "axios";
 
 
 const User = () => {
 
-  const [user, setUser] = useState("pepe")
-  const [userMode, setUserMode] = useState("login")
+  const [user, setUser] = useState("pepe");
+  const [userMode, setUserMode] = useState("login");
+  const [email, setEmail] = useState("");
+  const [password, setPassWord] = useState("");
+  const [password2, setPassword2] = useState("");
 
 
-  const handleSignUp = (event) => {
-    console.log("sign up " + event.target)
+  const handleSignUp = async (event) => {
+    event.preventDefault()
+
+
+    console.log(email, password)
+    try {
+      
+      const request = await axios({
+        url: "http://localhost:5000/users/signup",
+        method: 'post',
+        data: {
+          email:email,
+          password:password}
+     
+      }) 
+    console.log(request)
+    }catch (error) {
+        console.log(error)
+      
+    }
+    
+
     //http request to create user
     //is answer ok setUser to user
   }
 
   const handleLogin = (event) => {
-    console.log(event)
+    event.preventDefault();
+    
     setUser("pepe")
     setUserMode("loged")
   }
@@ -25,7 +48,6 @@ const User = () => {
   const handleLogout = () => {
     setUser("")
     setUserMode("login")
-
   }
 
   const setSignUpMode = () => {
@@ -36,29 +58,39 @@ const User = () => {
     setUserMode("login")
   }
 
+  const handleEmail = (event) => {
+    setEmail(event.target.value)
+  }
 
+  const handlePassword = (event) => {
+    setPassWord(event.target.value)
+  }
+
+  const handlePassword2 = (event) => {
+    setPassword2(event.target.value)
+  }
 
 
   return <div className="user">
 
     {userMode === "signup" ? <>
-      <form className="user__form">
+      <form className="user__form" onSubmit={handleSignUp}>
         <div>
-          <input type="text" placeholder="user" name="user" />
-          <input type="password" placeholder="password" name="password" />
-          <input type="password" placeholder="confirm password" name="password2" />
+          <input type="text" placeholder="email" name="email" onChange={handleEmail} />
+          <input type="password" placeholder="password" name="password" onChange={handlePassword} />
+          <input type="password" placeholder="confirm password" name="password2" onChange={handlePassword2} />
         </div>
-        <button className="header__button-container button1" onClick={handleSignUp}>signup</button>
+        <button className="header__button-container button1" type="submit" value="submit">signup</button>
         <button className="header__button-container button1" onClick={setLogInMode}>login</button>
 
       </form>
     </> : ""}
 
     {userMode === "login" ? <>
-      <form className="user__form">
-        <input type="text" placeholder="user" name="user" />
-        <input type="password" placeholder="password" name="password" />
-        <button className="header__button-container button1" onClick={handleLogin}>login</button>
+      <form className="user__form" onSubmit={handleLogin}>
+        <input type="text" placeholder="email" name="email" onChange={handleEmail} />
+        <input type="password" placeholder="password" name="password" onChange={handlePassword} />
+        <button className="header__button-container button1" type="submit">login</button>
         <button className="header__button-container button1" onClick={setSignUpMode}>signup</button>
       </form>
     </> : ""}
@@ -67,7 +99,7 @@ const User = () => {
       <button className="header__button-container button1" onClick={handleLogout}>logout</button>
       <p>hi {user}</p>
       <img className="cart-icon" src={cart} alt="cart"></img>
-    </>:""}
+    </> : ""}
 
 
 
