@@ -2,7 +2,7 @@ import React from "react";
 
 const LandingsCard = (props) => {
   const { id, name, year, geolocation, mass, date } = props.data
-
+//HAY QUE METER ESTE COMPONENTE DENTRO DE OTRO
 
   return <article className="landing-card">
     <h3>name: {name}</h3>

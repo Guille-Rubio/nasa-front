@@ -1,11 +1,12 @@
 import React, { useState } from "react";
+import {Link} from 'react-router-dom';
 import cart from '../../../assets/img/cart.jpg';
 import axios from "axios";
 
 
 const User = () => {
 
-  const [user, setUser] = useState("pepe");
+  const [user, setUser] = useState("pepe@gmail.com");
   const [userMode, setUserMode] = useState("login");
   const [email, setEmail] = useState("");
   const [password, setPassWord] = useState("");
@@ -14,33 +15,44 @@ const User = () => {
 
   const handleSignUp = async (event) => {
     event.preventDefault()
-
-
     console.log(email, password)
     try {
-      
       const request = await axios({
         url: "http://localhost:5000/users/signup",
         method: 'post',
         data: {
-          email:email,
-          password:password}
-     
-      }) 
-    console.log(request)
-    }catch (error) {
-        console.log(error)
-      
+          email: email,
+          password: password
+        }
+
+      })
+      console.log(request)
+    } catch (error) {
+      console.log(error)
     }
-    
 
     //http request to create user
     //is answer ok setUser to user
   }
 
-  const handleLogin = (event) => {
+  const handleLogin = async (event) => {
     event.preventDefault();
-    
+    console.log("front", email, password);
+
+    try {
+      const request = await axios({
+        url: "http://localhost:5000/users/login",
+        method: 'post',
+        data: {
+          email: email,
+          password: password
+        }
+      })
+    } catch (error) {
+      console.log(error)
+
+    }
+
     setUser("pepe")
     setUserMode("loged")
   }
@@ -98,7 +110,7 @@ const User = () => {
     {userMode === "loged" ? <>
       <button className="header__button-container button1" onClick={handleLogout}>logout</button>
       <p>hi {user}</p>
-      <img className="cart-icon" src={cart} alt="cart"></img>
+      <Link to="/cart"><img className="cart-icon" src={cart} alt="cart"/></Link>
     </> : ""}
 
 

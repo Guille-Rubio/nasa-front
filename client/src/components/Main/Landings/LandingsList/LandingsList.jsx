@@ -13,11 +13,13 @@ import LandingsCard from "./LandingsCard/LandingsCard";
 function LandingsList(props) {
 
     const [landings, setLandings] = useState([]);
-    const [coordinates, setCoordinates ] = useState([])
+    const [coordinates, setCoordinates] = useState([])
     const [filter, setFilter] = useState("");
+    const [filterSelector, setFilterSelector] = useState("mass")
 
     const from = useRef()
     const to = useRef()
+    const selector = useRef("mass");
 
     const position = [40.4168, -3.7038];
 
@@ -76,31 +78,56 @@ function LandingsList(props) {
         setFilter(`?from=${from.current.value}&to=${to.current.value}`)
     }
 
+ 
+
+
+    const selectFilter = (event) => {
+        const filterSelectorValue = selector.current.value;
+        setFilterSelector(filterSelectorValue);
+    }
+
 
     return (<div className="landing-list">
-        {/*  <Scroll {...scrollConfig}> */}
+
+        <section>
+            <h2>Search landings by:</h2>
+            <select name="selector" id="selector" ref={selector} onChange={selectFilter}>
+                <option value="mass" selected>Mass</option>
+                <option value="class">Class</option>
+                <option value="dates">Dates</option>
+            </select>
+        </section>
+
         <section className="landing-list__form-container">
             <form>
-                <div className="input__group">
-                    <label className="input__label" htmlFor="class">class</label>
-                    <input className="input__field" type="text" name="class" placeholder="class" id="class" onChange={handleClass} />
-                </div>
-                <div className="input__group">
-                    <label className="input__label" htmlFor="class">mass</label>
-                    <input className="input__field" type="text" name="mass" placeholder="mass" onChange={handleMass} />
-                </div>
-                <div className="input__group">
-                    <label className="input__label" htmlFor="class">date from</label>
-                    <input className="input__field" type="text" name="from" placeholder="date from" ref={from} />
-                </div>
-                <div className="input__group">
-                    <label className="input__label" htmlFor="class">date to</label>
-                    <input className="input__field" type="text" name="to" placeholder="date to" ref={to} />
+                {filterSelector === "class" ?
+                    <div className="input__group">
+                        <label className="input__label" htmlFor="class">class</label>
+                        <input className="input__field" type="text" name="class" placeholder="class" id="class" onChange={handleClass} />
+                    </div>
 
-                </div>
+                    : ""}
+                {filterSelector === "mass" ?
+                    <div className="input__group">
+                        <label className="input__label" htmlFor="class">mass</label>
+                        <input className="input__field" type="text" name="mass" placeholder="mass" onChange={handleMass} />
+                    </div>
+                    : ""}
+                {filterSelector === "dates" ?
+                    <>
+                        <div className="input__group">
+                            <label className="input__label" htmlFor="class">date from</label>
+                            <input className="input__field" type="text" name="from" placeholder="date from" ref={from} />
+                        </div>
+                        <div className="input__group">
+                            <label className="input__label" htmlFor="class">date to</label>
+                            <input className="input__field" type="text" name="to" placeholder="date to" ref={to} />
+                            <button className="button1" onClick={handleDate}>Search by date</button>
+                        </div>
+                    </> : ""}
             </form>
             <div>
-                <button className="button1" onClick={handleDate}>Search by date</button>
+
                 <Link to="/createlanding"><button className="button1">Add new landing</button></Link>
             </div>
             {landings ? <p>{landings.length} landings </p> : ""}
@@ -116,18 +143,18 @@ function LandingsList(props) {
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     />
 
-                    {coordinates ? coordinates.map(landing => <Marker position={landing} key={uuidV4()}></Marker>) : ""}
+                    {coordinates ? coordinates.map(location => <Marker position={location} key={uuidV4()}></Marker>) : ""}
 
                 </MapContainer>
             </div>
         </section>
         <section>
-
-            {landings.map((landing, i) => <LandingsCard className="landings-card" data={landing} key={uuidV4()} index={i} />)}
-
+            <Scroll {...scrollConfig}>
+                {landings.map((landing, i) => <LandingsCard className="landings-card" data={landing} key={uuidV4()} />)}
+            </Scroll>
         </section>
 
-        {/*  </Scroll> */}
+
     </div >)
 }
 

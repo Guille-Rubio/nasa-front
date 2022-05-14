@@ -18,15 +18,14 @@ function Home(props) {
         console.log(err)
       }
     }
-
     getApod()
   }, [])
 
 
   return <section className='home'>
     <div  className="home__nasa-image" style={{ 
-      backgroundImage: `url(${apod})`,  backgroundImageRepeat:"center",
-      backgroundSize:"contain"
+      backgroundImage: `url(${apod})`,
+      backgroundSize:"cover",backgroundPosition: "center"
     }}>
       <h1>Welcome to the NASA app</h1>
   
