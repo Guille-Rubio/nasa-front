@@ -5,73 +5,27 @@ function LandingsForm(props) {
 
   const [name, setName] = useState("")
   const [id, setId] = useState("")
-  const [nametype, setnametype] = useState("")
+  const [nametype, setNametype] = useState("")
   const [recclass, setRecclass] = useState("")
   const [mass, setMass] = useState("")
-  const [fall, setfall] = useState("")
+  const [fall, setFall] = useState("")
   const [year, setYear] = useState("")
   const [reclat, setReclat] = useState("")
   const [reclong, setReclong] = useState("")
   const [latitude, setLatitude] = useState("")
   const [longitude, setLongitude] = useState("")
 
-
-  const handleChangeName = (event) => {
-    const value = event.target.value;
-    setName(value);
-  }
-
-  const handleChangeId = (event) => {
-    const value = event.target.value;
-    setId(value);
-  }
-
-  const handleChangenametype = (event) => {
-    const value = event.target.value;
-    setnametype(value);
-  }
-
-  const handleChangeRecclass = (event) => {
-    const value = event.target.value;
-    setRecclass(value);
-  }
-
-  const handleChangeMass = (event) => {
-    const value = event.target.value;
-    setMass(value);
-  }
-
-  const handleChangefall = (event) => {
-    const value = event.target.value;
-    setfall(value);
-  }
-
-  const handleChangeYear = (event) => {
-    const value = event.target.value;
-    setYear(value);
-  }
-
-  const handleChangeReclat = (event) => {
-    const value = event.target.value;
-    setReclat(value);
-  }
-
-  const handleChangeReclong = (event) => {
-    const value = event.target.value;
-    setReclong(value);
-  }
-
-  const handleChangeLatitude = (event) => {
-    const value = event.target.value;
-    setLatitude(value);
-  }
-
-  const handleChangeLongitude = (event) => {
-    const value = event.target.value;
-    setLongitude(value);
-  }
-
-
+  const handleChangeName = event => setName(event.target.value);
+  const handleChangeId = event => setId(event.target.value);
+  const handleChangenametype = event => setNametype(event.target.value);
+  const handleChangeRecclass = event => setRecclass(event.target.value);
+  const handleChangeMass = event => setMass(event.target.value);
+  const handleChangefall = event => setFall(event.target.value);
+  const handleChangeYear = event => setYear(event.target.value);
+  const handleChangeReclat = event => setReclat(event.target.value);
+  const handleChangeReclong = event => setReclong(event.target.value);
+  const handleChangeLatitude = event => setLatitude(event.target.value);
+  const handleChangeLongitude = event => setLongitude(event.target.value);
 
   const addNewLanding = (event) => {
     event.preventDefault()
@@ -91,7 +45,7 @@ function LandingsForm(props) {
           year: year,
           reclat: reclat,
           reclong: reclong,
-          geolocation:{
+          geolocation: {
             latitude: latitude,
             longitude: longitude
           }
@@ -101,8 +55,6 @@ function LandingsForm(props) {
       console.log("there was an error, your new landing could not be saved")
     }
   }
-
-
 
   return <div className="landings-form">
     <h1>Add a new landing</h1>

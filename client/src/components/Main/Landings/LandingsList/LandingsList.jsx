@@ -6,7 +6,6 @@ import { v4 as uuidV4 } from 'uuid';
 import { MapContainer, TileLayer, Marker } from 'react-leaflet';
 import { Scroll } from 'react-scroll-component';
 import { scrollConfig } from '../../../../utils/scroll_config';
-import Pages from '../LandingsList/Pages';
 import LandingsCard from "./LandingsCard/LandingsCard";
 
 
@@ -23,14 +22,14 @@ function LandingsList(props) {
 
     const position = [40.4168, -3.7038];
 
-    /*    const rockIcon = {
-           iconUrl: 'leaf-green.png',
-           shadowUrl: 'leaf-shadow.png',
-           iconSize: [38, 95], 
-           iconAnchor: [22, 94], // point of the icon which will correspond to marker's location
-           shadowAnchor: [4, 62],  // the same for the shadow
-           popupAnchor: [-3, -76]
-       } */
+    /* const rockIcon = {
+        iconUrl: '../../../../assets/img/rock.png',
+        shadowUrl: null,
+        iconSize: [38, 95], 
+        iconAnchor: [0, 0], // point of the icon which will correspond to marker's location
+        shadowAnchor: [0,0],  // the same for the shadow
+        popupAnchor: [-3, -76]
+    } */
 
     useEffect(() => {
 
@@ -78,7 +77,11 @@ function LandingsList(props) {
         setFilter(`?from=${from.current.value}&to=${to.current.value}`)
     }
 
- 
+    const removeLanding = (i) => {
+        const remainingLandings = landings.filter((landing, j) => i !== j)
+        setLandings(remainingLandings);
+    }
+
 
 
     const selectFilter = (event) => {
@@ -127,10 +130,14 @@ function LandingsList(props) {
                     </> : ""}
             </form>
             <div>
-
-                <Link to="/createlanding"><button className="button1">Add new landing</button></Link>
+                {landings ? <p>{landings.length} landings displayed </p> : ""}
             </div>
-            {landings ? <p>{landings.length} landings </p> : ""}
+            <div>
+
+                <Link to="/landingsform"><button className="button1">Add new landing</button></Link>
+            </div>
+
+
         </section>
         <section>
             <h1>Map</h1>
@@ -150,10 +157,9 @@ function LandingsList(props) {
         </section>
         <section>
             <Scroll {...scrollConfig}>
-                {landings.map((landing, i) => <LandingsCard className="landings-card" data={landing} key={uuidV4()} />)}
+                {landings.map((landing, i) => <LandingsCard className="landings-card" data={landing} key={uuidV4()} remove={()=>removeLanding(i)} index={i} />)}
             </Scroll>
         </section>
-
 
     </div >)
 }
