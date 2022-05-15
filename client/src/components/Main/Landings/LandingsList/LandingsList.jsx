@@ -8,7 +8,6 @@ import { Scroll } from 'react-scroll-component';
 import { scrollConfig } from '../../../../utils/scroll_config';
 import LandingsCard from "./LandingsCard/LandingsCard";
 
-
 function LandingsList(props) {
 
     const [landings, setLandings] = useState([]);
@@ -134,9 +133,8 @@ function LandingsList(props) {
             </div>
             <div>
 
-                <Link to="/landingsform"><button className="button1">Add new landing</button></Link>
+                <Link to="/landingsform/?"><button className="button1">Add new landing</button></Link>
             </div>
-
 
         </section>
         <section>
