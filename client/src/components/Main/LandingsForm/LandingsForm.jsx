@@ -1,10 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
+
 
 function LandingsForm(props) {
 
+  const params = useParams()
+  console.log(params)
+  console.log(params.id)
+  
+
+  const [addMode, setAddMode] = useState(params.id === undefined)
+  console.log("addMode ", addMode)
+
   const [name, setName] = useState("")
-  const [id, setId] = useState("")
+  const [id, setId] = useState(addMode ? "" : params.id)
   const [nametype, setNametype] = useState("")
   const [recclass, setRecclass] = useState("")
   const [mass, setMass] = useState("")
@@ -14,6 +24,25 @@ function LandingsForm(props) {
   const [reclong, setReclong] = useState("")
   const [latitude, setLatitude] = useState("")
   const [longitude, setLongitude] = useState("")
+
+/*   useEffect(() => {
+   
+    console.log("***************");
+    console.log(params)
+    console.log(params.id)
+    setAddMode(params.id === undefined)
+    //actualizar componente según addMode
+    console.log("add mode use effect --> " , addMode)
+
+
+  }, []) */
+
+  useEffect(() => {
+    //si hay parámetros cargar datos del registro para editar. 
+    //pasar el landing desde la lista o hacer fetch?
+
+  }, [id])
+
 
   const handleChangeName = event => setName(event.target.value);
   const handleChangeId = event => setId(event.target.value);
@@ -29,35 +58,42 @@ function LandingsForm(props) {
 
   const addNewLanding = (event) => {
     event.preventDefault()
-    //validaciones 
-    //post a API 
-    try {
-      axios({
-        method: 'post',
-        url: 'http://localhost:5000/api/astronomy/landings/create',
-        data: {
-          name: name,
-          id: id,
-          nametype: nametype,
-          recclass: recclass,
-          mass: mass,
-          fall: fall,
-          year: year,
-          reclat: reclat,
-          reclong: reclong,
-          geolocation: {
-            latitude: latitude,
-            longitude: longitude
+    //añadir validaciones front
+    if (addMode) {
+      //post to edit 
+      
+    } else {
+      try {
+        axios({
+          method: 'post',
+          url: 'http://localhost:5000/api/astronomy/landings/create',
+          data: {
+            name: name,
+            id: id,
+            nametype: nametype,
+            recclass: recclass,
+            mass: mass,
+            fall: fall,
+            year: year,
+            reclat: reclat,
+            reclong: reclong,
+            geolocation: {
+              latitude: latitude,
+              longitude: longitude
+            }
           }
-        }
-      })
-    } catch (error) {
-      console.log("there was an error, your new landing could not be saved")
+        })
+      } catch (error) {
+        console.log("there was an error, your new landing could not be saved")
+      }
+
     }
   }
 
   return <div className="landings-form">
-    <h1>Add a new landing</h1>
+    {addMode
+      ? <h1>Add a new landing</h1>
+      : <h1>Edit landing</h1>}
     <form className="landings-form__form" onSubmit={addNewLanding}>
       <div className="input__group">
         <label className="input__label" htmlFor="name">name</label>
@@ -104,7 +140,10 @@ function LandingsForm(props) {
         <input className="input__field" type="text" name="longitude" placeholder="longitude" id="longitude" value={longitude} onChange={handleChangeLongitude} />
       </div>
       <div>
-        <button type="submit" className="button1">Add landing</button>
+        {addMode
+          ? <button type="submit" className="button1">Add landing</button>
+          : <button type="submit" className="button1">Edit landing</button>}
+
       </div>
     </form>
 

@@ -1,22 +1,33 @@
-import React from "react";
+import React, { useEffect } from "react";
 import axios from 'axios';
-import {Link} from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 
 const LandingsCard = (props) => {
+
   const { id, name, year, geolocation, mass, date } = props.data
-  //HAY QUE METER ESTE COMPONENTE DENTRO DE OTRO??
+  const [params, setParams] = useSearchParams();
 
   const removeLanding = () => {
     axios({
-      method:'delete',
-      url:"http://localhost:5000/api/astronomy/landings/delete",
-      data:{id:id},
+      method: 'delete',
+      url: "http://localhost:5000/api/astronomy/landings/delete",
+      data: { id: id },
     })
     props.remove();
-
   }
 
+/*   useEffect(() => {
+    setParams({
+      id: id,
+      name: name,
+      year: year,
+      geolocation: geolocation,
+      mass: mass,
+      date: date
+    })
 
+
+  },[]) */
 
 
   return <article className="landing-card">
@@ -28,7 +39,7 @@ const LandingsCard = (props) => {
     {mass ? <p>mass: {mass}</p> : ""}
     <button className="button1" onClick={removeLanding}>Remove landing</button>
     <button className="button1">Add to cart</button>
-    <Link to="/landingsform"><button className="button1">Edit landing</button></Link>
+    <Link to={`/landingsform/${id}`}><button className="button1">Edit landing</button></Link>
 
   </article>;
 };
