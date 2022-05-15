@@ -1,0 +1,21 @@
+.navbar{
+    display:flex;
+    justify-content:center;
+    align-items: center;
+    align-content: left;
+
+}
+
+.navbar__list{
+    list-style: none;
+
+}
+
+a{
+    text-decoration: none;
+}
+
+.burger{
+    width:35px;
+
+}
