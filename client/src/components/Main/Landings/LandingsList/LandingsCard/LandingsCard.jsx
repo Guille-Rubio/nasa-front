@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
+import React from "react";
 import axios from 'axios';
 import { Link, useSearchParams } from 'react-router-dom';
 
 const LandingsCard = (props) => {
 
   const { id, name, year, geolocation, mass, date } = props.data
-  const [params, setParams] = useSearchParams();
+  //const [params, setParams] = useSearchParams();
 
   const removeLanding = () => {
     axios({
@@ -40,6 +40,7 @@ const LandingsCard = (props) => {
     <button className="button1" onClick={removeLanding}>Remove landing</button>
     <button className="button1">Add to cart</button>
     <Link to={`/landingsform/${id}`}><button className="button1">Edit landing</button></Link>
+    <button className="button1">Detail</button>
 
   </article>;
 };
