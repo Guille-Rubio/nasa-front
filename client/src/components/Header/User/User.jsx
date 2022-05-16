@@ -1,65 +1,84 @@
 import React, { useState } from "react";
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import cart from '../../../assets/img/cart.jpg';
 import axios from "axios";
 
 
 const User = () => {
 
-  const [user, setUser] = useState("pepe@gmail.com");
+  const [user, setUser] = useState("");
   const [userMode, setUserMode] = useState("login");
   const [email, setEmail] = useState("");
   const [password, setPassWord] = useState("");
   const [password2, setPassword2] = useState("");
 
-
   const handleSignUp = async (event) => {
-    event.preventDefault()
-    console.log(email, password)
-    try {
-      const request = await axios({
-        url: "http://localhost:5000/users/signup",
-        method: 'post',
-        data: {
-          email: email,
-          password: password
-        }
-
-      })
-      console.log(request)
-    } catch (error) {
-      console.log(error)
+    if (password === password2) {
+      event.preventDefault();
+      console.log(email, password);
+      try {
+        const request = await axios({
+          url: "http://localhost:5000/users/signup",
+          method: 'post',
+          data: {
+            email: email,
+            password: password
+          }
+        })
+        alert(`new user ${email} registered`);
+        console.log(request);
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      alert("passwords don't match");
+      //add login function
     }
-
-    //http request to create user
-    //is answer ok setUser to user
+    //SET ACTIVE USER WITH REDUX
+   
+    setUserMode("loged");
+    setUser(email);
+    setEmail("");
+    setPassWord("");
+    setPassword2("");
   }
 
   const handleLogin = async (event) => {
     event.preventDefault();
-    console.log("front", email, password);
-
     try {
       const request = await axios({
         url: "http://localhost:5000/users/login",
         method: 'post',
+       /*  withCredentials:true, */
         data: {
           email: email,
           password: password
         }
       })
+
+      const response = await request.data;
+      console.log("response", response);
     } catch (error) {
-      console.log(error)
+      console.log(error);
 
     }
 
-    setUser("pepe")
-    setUserMode("loged")
+    //SET ACTIVE USER WITH REDUX
+    setUserMode("loged");
+    setUser(email);
+    setEmail("");
+    setPassWord("");
   }
 
   const handleLogout = () => {
-    setUser("")
-    setUserMode("login")
+    setUser("");
+    setPassWord("");
+    /* axios({
+      url:'http://localhost:5000/users/logout',
+      method:'get'
+    }) */
+    //EMPTY ACTIVE USER WITH REDUX
+    setUserMode("login");
   }
 
   const setSignUpMode = () => {
@@ -81,6 +100,7 @@ const User = () => {
   const handlePassword2 = (event) => {
     setPassword2(event.target.value)
   }
+
 
 
   return <div className="user">
@@ -110,12 +130,8 @@ const User = () => {
     {userMode === "loged" ? <>
       <button className="header__button-container button1" onClick={handleLogout}>logout</button>
       <p>hi {user}</p>
-      <Link to="/cart"><img className="cart-icon" src={cart} alt="cart"/></Link>
+      <Link to="/cart"><img className="cart-icon" src={cart} alt="cart" /></Link>
     </> : ""}
-
-
-
-
 
   </div>;
 };
