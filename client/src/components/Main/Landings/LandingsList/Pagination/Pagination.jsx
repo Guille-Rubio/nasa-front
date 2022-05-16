@@ -29,9 +29,9 @@ const Pagination = (props) => {
   }, [props.landings])
 
 
-  useEffect(()=>{//actualiza los landings to display cada vez que se actualizan los landings
+  useEffect(() => {//actualiza los landings to display cada vez que se actualizan los landings
     setLandingsToDisplay(landings.slice((activePage * 10) - 10, activePage * 10))
-  },[landings])
+  }, [landings])
 
 
   useEffect(() => {//Actualiza los landings a mostrar cada vez que se cambia de pagina
@@ -39,7 +39,7 @@ const Pagination = (props) => {
   }, [activePage])
 
 
-  const handlePrevious = () => activePage !== 1? setActivePage(activePage - 1):"";
+  const handlePrevious = () => activePage !== 1 ? setActivePage(activePage - 1) : "";
 
   const handleNext = () => {
     if (activePage === totalPagesForLandings) {
@@ -109,7 +109,7 @@ const Pagination = (props) => {
     </section>
 
     <section>
-      {landings/* .length > 0  */? landingsToDisplay.map((landing, i) => <LandingsCard data={landing} key={uuidV4()} remove={() => props.remove(i)} />) : ""}
+      {landings/* .length > 0  */ ? landingsToDisplay.map((landing, i) => <LandingsCard data={landing} key={uuidV4()} remove={() => props.remove(i, landing.id)} />) : ""}
     </section>
 
     <section className="page-box-container">

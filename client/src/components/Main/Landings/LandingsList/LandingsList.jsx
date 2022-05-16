@@ -76,8 +76,22 @@ function LandingsList(props) {
         setFilter(`?from=${from.current.value}&to=${to.current.value}`)
     }
 
-    const removeLanding = (i) => {
+    const removeLanding = (i, id) => {
+        try {
+            axios({
+                url: 'http://localhost:5000/api/astronomy/landings/delete',
+                method: 'delete',
+                data: { id: id },
+                headers: {//SORT OUT CORS TO FIX IT
+
+                }
+            })
+        } catch (error) {
+
+        }
+
         const remainingLandings = landings.filter((landing, j) => i !== j)
+
         setLandings(remainingLandings);
     }
 
@@ -86,7 +100,7 @@ function LandingsList(props) {
         setFilterSelector(filterSelectorValue);
     }
 
-    
+
 
     return (<div className="landing-list">
 
@@ -196,7 +210,7 @@ function LandingsList(props) {
                 </MapContainer>
             </div>
         </section>
-        
+
 
         <Scroll {...scrollConfig}>
             {/*  {landings.map((landing, i) => <LandingsCard className="landings-card" data={landing} key={uuidV4()} remove={()=>removeLanding(i)} index={i} />)} */}
